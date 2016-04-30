@@ -28,4 +28,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rake', '~> 10.3.2', '~> 10.0'
   spec.add_runtime_dependency 'watir-webdriver', '~> 0.8', '>= 0.8.0'
   spec.add_runtime_dependency 'random-word', '~> 1.3', '>= 1.3.0'
+  spec.add_runtime_dependency 'rmagick', '2.15.4'
+  spec.add_runtime_dependency 'tesseract-ocr', '0.1.8'
 end

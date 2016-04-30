@@ -15,6 +15,7 @@ require 'aws_account_utils/password'
 require 'aws_account_utils/alternate_contacts'
 require 'aws_account_utils/company_name'
 require 'aws_account_utils/logout'
+require 'aws_account_utils/forgotten_password'
 
 module AwsAccountUtils
   class AwsAccountUtils
@@ -163,6 +164,21 @@ module AwsAccountUtils
       browser.close rescue nil
     end
 
+    def request_password_reset_link(account_email:)
+      resp = forgotten_password.request_password_reset_link account_email
+      logger.info 'Password reset requested.' if resp
+      resp
+    ensure
+      browser.close rescue nil
+    end
+
+    def reset_password(reset_link:, account_password:)
+      resp = forgotten_password.reset_password reset_link, account_password
+      logger.info 'Password has been reset.' if resp
+      resp
+    ensure
+      browser.close rescue nil
+    end
 
     private
     def account_registration
@@ -223,6 +239,10 @@ module AwsAccountUtils
 
     def logout
       @logout ||= Logout.new logger, browser
+    end
+
+    def forgotten_password
+      @forgotten_password ||= ForgottenPassword.new logger, browser
     end
   end
 end
